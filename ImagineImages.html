@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ImagineImages</title>
+<style>
+body{margin:0;font-family:Arial,sans-serif;background:#f4f6fb}
+header{background:linear-gradient(90deg,#6a11cb,#2575fc);color:white;text-align:center;padding:30px}
+.hero{text-align:center;padding:60px 20px}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;padding:20px}
+.card{background:white;padding:15px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.img{height:160px;background:#e8eefc;border-radius:8px;display:flex;align-items:center;justify-content:center}
+button{background:#2575fc;color:white;border:none;padding:10px 15px;border-radius:8px;cursor:pointer}
+#cart{position:fixed;right:15px;bottom:15px;background:white;padding:15px;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,.2);width:260px}
+input{width:95%;padding:8px;margin:5px 0}
+</style>
+</head>
+<body>
+<header><h1>ImagineImages</h1><p>Premium AI Art Downloads</p></header>
+
+<section class="hero">
+<h2>Discover Amazing AI Art</h2>
+<p>Browse unique digital artwork and download instantly.</p>
+<button onclick="document.getElementById('gallery').scrollIntoView({behavior:'smooth'})">Browse Collection</button>
+</section>
+
+<section id="gallery" class="gallery"></section>
+
+<div id="cart">
+<h3>Cart</h3>
+<ul id="cartItems"></ul>
+<p><strong>Total: $<span id="total">0.00</span></strong></p>
+<input id="name" placeholder="Your Name">
+<input id="email" placeholder="Your Email">
+<button onclick="checkout()">Checkout</button>
+</div>
+
+<script>
+const names=["Neon Tokyo","Crystal Cavern","Lunar Horizon","Dragon's Keep","Cyber Dreams","Forgotten Kingdom","Arctic Eclipse","Ocean of Stars","Mystic Forest","Infinite Skyline","Solar Voyage","Phantom City","Golden Nebula","Skybound Castle","Echoes of Mars","Frozen Galaxy","Electric Jungle","Midnight Harbor","Aurora Realm","Quantum Rift"];
+const gallery=document.getElementById('gallery');
+let cart=[];
+
+names.forEach((name,i)=>{
+ const price=((i%5)+1)*4.99;
+ const card=document.createElement('div');
+ card.className='card';
+ card.innerHTML=`<div class="img">Artwork Preview</div><h3>${name}</h3><p>$${price.toFixed(2)}</p><button onclick="addToCart('${name}',${price})">Add to Cart</button>`;
+ gallery.appendChild(card);
+});
+
+function addToCart(name,price){cart.push({name,price});renderCart();}
+function renderCart(){
+ let total=0;
+ const list=document.getElementById('cartItems');
+ list.innerHTML='';
+ cart.forEach(item=>{
+   total+=item.price;
+   const li=document.createElement('li');
+   li.textContent=item.name;
+   list.appendChild(li);
+ });
+ document.getElementById('total').textContent=total.toFixed(2);
+}
+function checkout(){
+ if(cart.length===0){alert('Cart is empty');return;}
+ alert('Demo checkout complete! Connect Stripe later for real payments.');
+}
+</script>
+</body>
+</html>
