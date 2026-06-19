@@ -64,9 +64,46 @@ let total = 0;
 
 const gallery = document.getElementById("gallery");
 
-for (let i = 1; i <= 20; i++) {
+const artworks = [
+  { name: "Sunset Dreams", price: 25 },
+  { name: "Cyber Wolf", price: 40 },
+  { name: "Neon City", price: 35 },
+  { name: "Galaxy Dragon", price: 50 },
+  { name: "Ocean Spirit", price: 30 },
+  { name: "Artwork 6", price: 20 },
+  { name: "Artwork 7", price: 45 },
+  { name: "Artwork 8", price: 60 },
+  { name: "Artwork 9", price: 35 },
+  { name: "Artwork 10", price: 25 },
+  { name: "Artwork 11", price: 40 },
+  { name: "Artwork 12", price: 55 },
+  { name: "Artwork 13", price: 30 },
+  { name: "Artwork 14", price: 45 },
+  { name: "Artwork 15", price: 75 },
+  { name: "Artwork 16", price: 50 },
+  { name: "Artwork 17", price: 20 },
+  { name: "Artwork 18", price: 65 },
+  { name: "Artwork 19", price: 35 },
+  { name: "Artwork 20", price: 80 }
+];
 
-    let price = 4 + i * 1;
+artworks.forEach((artwork) => {
+
+  let card = document.createElement("div");
+
+  card.className = "card";
+
+  card.innerHTML = `
+    <div class="thumb">${artwork.name}</div>
+    <h3>${artwork.name}</h3>
+    <p>$${artwork.price}</p>
+    <button onclick="addItem('${artwork.name}', ${artwork.price})">
+      Add to Cart
+    </button>
+  `;
+
+  gallery.appendChild(card);
+});
 
     let card = document.createElement("div");
 
