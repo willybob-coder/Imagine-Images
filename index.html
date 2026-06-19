@@ -105,22 +105,7 @@ artworks.forEach((artwork) => {
   gallery.appendChild(card);
 });
 
-    let card = document.createElement("div");
-
-    card.className = "card";
-
-    card.innerHTML = `
-        <div class="thumb">Artwork ${i}</div>
-        <h3>AI Artwork ${i}</h3>
-        <p>$${price}</p>
-        <button onclick="addItem('AI Artwork ${i}', ${price})">
-            Add to Cart
-        </button>
-    `;
-
-    gallery.appendChild(card);
-}
-
+  
 function addItem(name, price) {
 
     total += price;
