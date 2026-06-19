@@ -71,11 +71,79 @@ function addItem(name,price){
  li.textContent=name+' - $'+price;
  document.getElementById('cartItems').appendChild(li);
 }
-function checkout(){
- let email=document.getElementById('email').value;
- if(!email){alert('Enter email');return;}
- document.getElementById('msg').innerHTML='Order reserved for '+email+'. Pay via Venmo QR code.';
+<script>
+function checkout() {
+
+    const email =
+        document.getElementById("email").value.trim();
+
+    if (!email) {
+        alert("Please enter your email.");
+        return;
+    }
+
+    const cartItems =
+        document.querySelectorAll("#cartItems li");
+
+    if (cartItems.length === 0) {
+        alert("Your cart is empty.");
+        return;
+    }
+
+    let items = [];
+
+    cartItems.forEach(item => {
+        items.push(item.textContent);
+    });
+
+    emailjs.send(
+        "service_26cd2g5",
+        "template_h999a2v",
+        {
+            customer_email: email,
+            order_items: items.join("\\n"),
+            order_total: "$" + total
+        }
+    )
+    .then(function() {
+
+        document.getElementById("msg").innerHTML = `
+            <h3>Order Submitted!</h3>
+            <p>
+            Send your payment to
+            <strong>@MorgenT-Baer</strong>
+            using the Venmo QR code.
+            </p>
+            <p>
+            Once payment is confirmed,
+            your artwork will be delivered
+            to ${email}.
+            </p>
+        `;
+
+        cart = [];
+        total = 0;
+
+        document.getElementById("total").textContent = "0";
+        document.getElementById("cartItems").innerHTML = "";
+
+    })
+    .catch(function(error) {
+        console.error(error);
+        alert("Failed to send order.");
+    });
+
 }
+ <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script>
+emailjs.init({
+    publicKey: "IlkfWWs2z_u0vhsvz"
+});
+</script>
+
+
+
 </script>
 </body>
 </html>
